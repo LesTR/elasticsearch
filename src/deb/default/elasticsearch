@@ -1,3 +1,6 @@
+# Enable autostart from init script
+#AUTOSTART=yes
+
 # Run ElasticSearch as this user ID and group ID
 #ES_USER=elasticsearch
 #ES_GROUP=elasticsearch

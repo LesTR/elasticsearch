@@ -24,6 +24,7 @@ set -e
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 NAME=elasticsearch
 DESC="ElasticSearch Server"
+AUTOSTART="yes"
 DEFAULT=/etc/default/$NAME
 
 if [ `id -u` -ne 0 ]; then
@@ -98,6 +99,15 @@ CONF_FILE=$CONF_DIR/elasticsearch.yml
 if [ -f "$DEFAULT" ]; then
 	. "$DEFAULT"
 fi
+
+# Check autostart configuration
+AUTOSTART=$(echo $AUTOSTART| tr "[:upper:]" "[:lower:]")
+
+if test "x$AUTOSTART" != "xyes"; then
+	log_warning_msg " Autostart disabled. Check $DEFAULT configuration file and change AUTOSTART to 'yes'"
+	exit 0
+fi
+
 
 # Define other required variables
 PID_FILE=/var/run/$NAME.pid
